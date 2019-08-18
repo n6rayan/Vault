@@ -1,0 +1,23 @@
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+.CenterPage {
+  padding: 1cm;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+.CenterPage p {
+  font-size: 25px;
+}
+
+.LoginTopRight {
+  vertical-align: top; 
+}
+
+button {
+  font-size: 15px;
+}
