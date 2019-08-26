@@ -4,7 +4,7 @@
   "description": "Centralised banking application allowing you to register all your accounts in one place and view all the information.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon src/app.js",
     "test": "mocha --exit"
   },
   "repository": {
@@ -25,7 +25,14 @@
   },
   "homepage": "https://github.com/n6rayan/Vault#readme",
   "dependencies": {
+    "app-root-path": "^2.2.1",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.20.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "uuid": "^3.3.3",
+    "winston": "^3.2.1"
   }
 }

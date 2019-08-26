@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+import App from './App';
 import Login from './components/Login';
-import Signup from './components/Signup';
+import SignUp from './components/SignUp';
 
 const routing = (
   <Router>
     <Route exact path="/" component={App} />
     <Route path="/login" component={Login} />
-    <Route path="/signup" component={Signup} />
+    <Route path="/signup" component={SignUp} />
   </Router>
 );
 

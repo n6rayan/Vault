@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
+
+import axios from 'axios';
 import { Button, Jumbotron, Form } from 'react-bootstrap';
 
-export default class Signup extends Component {
+export default class SignUp extends Component {
 
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+    };
+  }
+
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = new FormData(event.target);
 
-    console.log(data);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify(this.state),
+      url: 'http://localhost:3001/user'
+    };
+
+    axios(options);
   }
 
   render() {
@@ -25,30 +44,30 @@ export default class Signup extends Component {
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
               <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Who are you, buddy?" />
+                <Form.Control name="name" type="text" placeholder="Who are you, buddy?" onChange={this.handleChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter a username you wish to use!" />
+              <Form.Control name="username" type="text" placeholder="Enter a username you wish to use!" onChange={this.handleChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Mobile Number</Form.Label>
-              <Form.Control type="text" placeholder="What number can we contact you at?" />
+              <Form.Control name="phone" type="tel" placeholder="What number can we contact you at?" onChange={this.handleChange} />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="What's your email?" />
+              <Form.Control name="email" type="email" placeholder="What's your email?" onChange={this.handleChange} />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Shhh, keep this a secret!" />
+              <Form.Control name="password" type="password" placeholder="Shhh, keep this a secret!" onChange={this.handleChange} />
             </Form.Group>
 
-            <div style={{margin: '0 auto'}}>
+            <div>
               <div style={{float: 'left'}}>
                 <Button variant="primary" type="submit">
                   Let's go!
