@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
-import { Button, Jumbotron, Form } from 'react-bootstrap';
+import { Button, Jumbotron, Form, Alert } from 'react-bootstrap';
 
 export default class SignUp extends Component {
 
@@ -12,6 +12,7 @@ export default class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
+      setShow: false
     };
   }
 
@@ -22,7 +23,7 @@ export default class SignUp extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
 
     const options = {
@@ -32,7 +33,26 @@ export default class SignUp extends Component {
       url: 'http://localhost:3001/user'
     };
 
-    axios(options);
+    let result = await axios(options);
+
+    if (result.data.success) {
+      this.setState({
+        setShow: true,
+        message: "User has successfully been created!",
+        variant: "success"
+      });
+    }
+    else {
+      this.setState({
+        setShow: true,
+        message: "There was a problem creating a user!",
+        variant: "danger"
+      });
+    }
+  }
+
+  dismissAlert() {
+    this.setState({setShow: false});
   }
 
   render() {
@@ -81,6 +101,12 @@ export default class SignUp extends Component {
               </div>
             </div>
           </Form>
+
+          <div>
+            <Alert show={this.state.setShow} variant={this.state.variant} dismissible onClose={() => this.dismissAlert}>
+              {this.state.message}
+            </Alert>
+          </div>
         </div>
       </Jumbotron>
     );

@@ -1,18 +1,26 @@
 const router = require('express').Router();
 
 const log = require('../logger');
-const User = require('../controllers/user');
+const UserController = require('../controllers/user');
 
 router.post('/user', async (req, res) => {
-  const user = new User();
-
-  let result;
+  const user = new UserController();
 
   try {
-    result = await user.createUser(req.body);
+    await user.createUser(req.body);
+
+    return res.status(200).send({
+      success: true,
+      message: "User created!"
+    });
   }
   catch (err) {
-    log.error(`Problem creating user: [${err}]`);
+    log.error(`Problem creating user: [ ${err} ]`);
+
+    return res.status(400).send({
+      success: false,
+      error: "Unable to create user!"
+    });
   }
 });
 

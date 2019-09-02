@@ -1,10 +1,14 @@
 'use strict';
+const Database = require('../database')
+const log = require('../logger');
 
 class UserController {
+  constructor() {
+    this.database = new Database();
+  }
 
   async createUser(body) {
-    // TODO: Add logic to save user to database
-    console.log(body);
+    return this.database.createUser(body);
   }
 }
 
