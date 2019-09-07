@@ -15,7 +15,7 @@ class Database {
       mongoose.connect(connectionString, { useNewUrlParser: true });
     }
     catch (err) {
-      throw new Error(`Error connecting to database: [ ${err} ]`)
+      throw Error(`Error connecting to database: [ ${err} ]`)
     }
   }
 

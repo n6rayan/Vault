@@ -10,7 +10,7 @@ router.post('/user', async (req, res) => {
     await user.createUser(req.body);
 
     return res.status(200).send({
-      success: true,
+      success: 1,
       message: "User created!"
     });
   }
@@ -18,7 +18,7 @@ router.post('/user', async (req, res) => {
     log.error(`Problem creating user: [ ${err} ]`);
 
     return res.status(400).send({
-      success: false,
+      success: 0,
       error: "Unable to create user!"
     });
   }
