@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
-import { Button, Jumbotron, Form, Alert } from 'react-bootstrap';
+import { Button, Jumbotron, Form } from 'react-bootstrap';
 
 export default class SignUp extends Component {
 
@@ -36,23 +36,13 @@ export default class SignUp extends Component {
     let result = await axios(options);
 
     if (result.data.success) {
-      this.setState({
-        setShow: true,
-        message: "User has successfully been created!",
-        variant: "success"
-      });
+      alert('User created!');
     }
     else {
-      this.setState({
-        setShow: true,
-        message: "There was a problem creating a user!",
-        variant: "danger"
-      });
+      alert(`Problem creating user: ${result.data.error}`);
     }
-  }
 
-  dismissAlert() {
-    this.setState({setShow: false});
+    this.form.reset();
   }
 
   render() {
@@ -61,7 +51,7 @@ export default class SignUp extends Component {
         <div>
           <h1 style={{fontSize: '50px'}}>Sign up...</h1><br />
 
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} ref={form => this.form = form}>
             <Form.Group>
               <Form.Label>Name</Form.Label>
                 <Form.Control name="name" type="text" placeholder="Who are you, buddy?" onChange={this.handleChange} />
@@ -101,12 +91,6 @@ export default class SignUp extends Component {
               </div>
             </div>
           </Form>
-
-          <div>
-            <Alert show={this.state.setShow} variant={this.state.variant} dismissible onClose={() => this.dismissAlert}>
-              {this.state.message}
-            </Alert>
-          </div>
         </div>
       </Jumbotron>
     );
