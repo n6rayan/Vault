@@ -24,6 +24,14 @@ class Database {
 
     return await user.save();
   }
+
+  async getUserByUsername(username) {
+    return await User.findOne({ username: username });
+  }
+
+  async getUserById(id) {
+    return await User.findById(id);
+  }
 }
 
 module.exports = Database;
