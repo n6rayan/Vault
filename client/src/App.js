@@ -1,9 +1,31 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Jumbotron } from 'react-bootstrap';
 
 import './assets/Vault.css';
 
 export default class App extends Component {
+
+  async componentDidMount() {
+    await this.userSessionExists();
+  }
+
+  async userSessionExists() {
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:3001/current-user'
+    };
+
+    const response = await axios(options);
+    console.log(response);
+
+    if (response.data.user) {
+      this.setState({ loggedIn: true });
+    }
+    else {
+      this.setState({ loggedIn: false });
+    }
+  }
 
   render() {
     return (
