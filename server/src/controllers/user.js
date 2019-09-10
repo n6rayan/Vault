@@ -1,6 +1,5 @@
 'use strict';
-const Database = require('../database')
-const log = require('../logger');
+const Database = require('../database');
 
 class UserController {
   constructor() {
@@ -9,6 +8,10 @@ class UserController {
 
   async createUser(body) {
     return this.database.createUser(body);
+  }
+
+  async getUser(body) {
+    return this.database.getUser(body);
   }
 }
 
