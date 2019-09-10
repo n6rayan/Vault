@@ -12,7 +12,6 @@ export default class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      setShow: false
     };
   }
 
