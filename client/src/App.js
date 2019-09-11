@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Jumbotron } from 'react-bootstrap';
+import { Redirect } from "react-router-dom";
 
 import './assets/Vault.css';
 
@@ -13,6 +14,7 @@ export default class App extends Component {
     };
 
     this.userSessionExists = this.userSessionExists.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   async componentDidMount() {
@@ -43,13 +45,27 @@ export default class App extends Component {
     }
   }
 
+  async logout(event) {
+    event.preventDefault();
+
+    const options = {
+      method: 'GET',
+      url: 'http://localhost:3001/logout',
+      withCredentials: true
+    };
+
+    await axios(options);
+
+    return <Redirect to={{pathname: '/'}} />
+  }
+
   render() {
     if (this.state.loggedIn) {
       return (
         <div>
           <p>Hi {this.state.username}</p>
 
-          <Button variant="primary">Logout</Button>
+          <Button variant="primary" onClick={this.logout}>Logout</Button>
         </div>
       );
     }
