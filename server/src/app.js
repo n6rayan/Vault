@@ -7,7 +7,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const FileStore = require('session-file-store')(session);
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session)
 const uuidv1 = require('uuid/v1');
 const uuidv4 = require('uuid/v4');
 
@@ -16,10 +17,11 @@ const log = require('./logger');
 const routes = require('./routes');
 
 const app = express();
+const redisClient = redis.createClient();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 app.use(helmet());
 
 app.use(session({
@@ -29,7 +31,11 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: config.get('session.secret'),
-  store: new FileStore()
+  store: new RedisStore({
+    client: redisClient,
+    prefix: 'vault-session-'
+  }),
+  name: 'Vault'
 }));
 
 app.use(passport.initialize());
