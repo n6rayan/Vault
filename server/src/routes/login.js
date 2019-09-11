@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 const log = require('../logger');
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       log.error(err);
