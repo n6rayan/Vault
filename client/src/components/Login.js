@@ -12,7 +12,8 @@ export default class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      redirectPath: null
+      username: '',
+      password: ''
     };
   }
 
@@ -30,7 +31,8 @@ export default class Login extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(this.state),
-      url: 'http://localhost:3001/login'
+      url: 'http://localhost:3001/login',
+      withCredentials: true
     };
 
     const result = await axios(options);
@@ -46,7 +48,7 @@ export default class Login extends Component {
     }
   }
 
-  render = () => {
+  render() {
     if (this.state.redirectPath) {
       return (<Redirect to={{ pathname: this.state.redirectPath }} />);
     }
@@ -59,12 +61,12 @@ export default class Login extends Component {
             <Form onSubmit={this.handleSubmit} ref={form => this.form = form}>
               <Form.Group>
                 <Form.Label>Username</Form.Label>
-                <Form.Control name="username" type="text" placeholder="Enter username..." onChange={this.handleChange} />
+                <Form.Control value={this.state.username} name="username" type="text" placeholder="Enter username..." onChange={this.handleChange} />
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control name="password" type="password" placeholder="Enter password..." onChange={this.handleChange} />
+                <Form.Control value={this.state.password} name="password" type="password" placeholder="Enter password..." onChange={this.handleChange} />
               </Form.Group>
 
               <div>
