@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Jumbotron } from 'react-bootstrap';
-import { Redirect } from "react-router-dom";
 
 import './assets/Vault.css';
+import AccountHome from './components/AccountHome';
 
 export default class App extends Component {
   constructor() {
@@ -14,11 +14,15 @@ export default class App extends Component {
     };
 
     this.userSessionExists = this.userSessionExists.bind(this);
-    this.logout = this.logout.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
   async componentDidMount() {
     await this.userSessionExists();
+  }
+
+  updateUser (userObject) {
+    this.setState(userObject);
   }
 
   async userSessionExists() {
@@ -29,7 +33,6 @@ export default class App extends Component {
     };
 
     const response = await axios(options);
-    console.log(response);
 
     if (response.data.user) {
       this.setState({
@@ -45,27 +48,11 @@ export default class App extends Component {
     }
   }
 
-  async logout(event) {
-    event.preventDefault();
-
-    const options = {
-      method: 'GET',
-      url: 'http://localhost:3001/logout',
-      withCredentials: true
-    };
-
-    await axios(options);
-
-    return <Redirect to={{pathname: '/'}} />
-  }
-
   render() {
     if (this.state.loggedIn) {
       return (
         <div>
-          <p>Hi {this.state.username}</p>
-
-          <Button variant="primary" onClick={this.logout}>Logout</Button>
+          <AccountHome updateUser={this.updateUser} username={this.state.username}></AccountHome>
         </div>
       );
     }
