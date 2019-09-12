@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 import { Button, Jumbotron, Form } from 'react-bootstrap';
@@ -36,15 +37,20 @@ export default class SignUp extends Component {
 
     if (result.data.success) {
       alert('User created!');
+
+      this.setState({ redirectPath: '/login' });
     }
     else {
       alert(`Problem creating user: ${result.data.error}`);
-    }
 
-    this.form.reset();
+      this.setState({ redirectPath: '/signup' });
+    }
   }
 
   render() {
+    if (this.state.redirectPath) {
+      return (<Redirect to={{ pathname: this.state.redirectPath }} />);
+    }
     return (
       <Jumbotron>
         <div>

@@ -36,7 +36,6 @@ export default class Login extends Component {
     };
 
     const result = await axios(options);
-    console.log(result);
 
     this.form.reset();
 
