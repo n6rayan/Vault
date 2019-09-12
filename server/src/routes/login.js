@@ -14,7 +14,7 @@ router.post('/login', (req, res, next) => {
       log.info(info);
 
       info.success = 0;
-      return res.status(401).send(info);
+      return res.send(info);
     }
 
     req.logIn(user, (err) => {
@@ -43,7 +43,7 @@ router.get('/current-user', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logOut();
-  res.send(null);
+  res.send({ success: 1, message: 'Successfully logged out!' });
 });
 
 module.exports = router;
