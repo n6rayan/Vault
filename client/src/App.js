@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Button, Jumbotron } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import './assets/Vault.css';
 import AccountHome from './components/AccountHome';
@@ -21,7 +21,7 @@ export default class App extends Component {
     await this.userSessionExists();
   }
 
-  updateUser (userObject) {
+  updateUser(userObject) {
     this.setState(userObject);
   }
 
@@ -58,7 +58,7 @@ export default class App extends Component {
     }
     else {
       return (
-        <Jumbotron>
+        <div>
           <div align="right">
             <p>Already registered? <a href="/login">Login</a></p>
           </div>
@@ -70,7 +70,7 @@ export default class App extends Component {
 
             <Button variant="primary" href="/signup">Get Started</Button>
           </div>
-        </Jumbotron>
+        </div>
       );
     }
   }
