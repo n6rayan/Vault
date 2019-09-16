@@ -30,7 +30,7 @@ export default class SignUp extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(this.state),
-      url: 'http://localhost:3001/user'
+      url: 'http://localhost:3001/api/user'
     };
 
     let result = await axios(options);

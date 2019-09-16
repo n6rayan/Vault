@@ -18,7 +18,7 @@ export default class TopNav extends Component {
 
     const options = {
       method: 'GET',
-      url: 'http://localhost:3001/logout',
+      url: 'http://localhost:3001/api/logout',
       withCredentials: true
     };
 
@@ -36,10 +36,10 @@ export default class TopNav extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/register-bank">Add Account</Nav.Link>
+            <Nav.Link href="/transactions">Transactions</Nav.Link>
           </Nav>
           <Form inline>
-            <Navbar.Text>Hello, {this.props.username}</Navbar.Text>
             <Nav.Link href="/account">My Account</Nav.Link>
             <Button variant="outline-success" onClick={this.logout}>Logout</Button>
           </Form>

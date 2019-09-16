@@ -12,7 +12,7 @@ export default class AccountHome extends Component {
 
   render() {
     return (
-      <TopNav updateUser={this.props.updateUser} username={this.props.username} />
+      <TopNav updateUser={this.props.updateUser} />
     );
   }
 }

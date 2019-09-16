@@ -31,7 +31,7 @@ export default class Login extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(this.state),
-      url: 'http://localhost:3001/login',
+      url: 'http://localhost:3001/api/login',
       withCredentials: true
     };
 

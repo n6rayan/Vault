@@ -28,7 +28,7 @@ export default class App extends Component {
   async userSessionExists() {
     const options = {
       method: 'GET',
-      url: 'http://localhost:3001/current-user',
+      url: 'http://localhost:3001/api/current-user',
       withCredentials: true
     };
 
