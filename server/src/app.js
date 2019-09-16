@@ -28,14 +28,14 @@ app.use(session({
   genid: () => {
     return uuidv4(); // use UUIDs for session IDs
   },
+  name: 'Vault',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   secret: config.get('session.secret'),
   store: new RedisStore({
     client: redisClient,
     prefix: 'vault-session-'
-  }),
-  name: 'Vault'
+  })
 }));
 
 app.use(passport.initialize());
@@ -90,7 +90,7 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 });
 
-app.use(routes);
+app.use('/api', routes);
 
 const port = process.env.PORT || 3001;
 
