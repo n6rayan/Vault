@@ -11,12 +11,18 @@ export default class RegisterBank extends Component {
 
     this.state = {
     };
+
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
   }
 
   render() {
     return (
       <div>
-        <TopNav updateUser={this.props.updateUser} />
+        <TopNav updateUser={this.updateUser} />
         <h1 style={{ fontSize: '50px' }}>Register Bank</h1><br />
 
         <Container>

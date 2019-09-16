@@ -31,7 +31,8 @@ router.get('/oauth/redirect', async (req, res) => {
   // }
 
   const accessToken = await starling.getAccessToken(code);
-  req.session.accessToken = accessToken;
+  req.session.accessToken = accessToken.data.access_token;
+  req.session.refreshToken = accessToken.data.refresh_token;
 
   res.redirect('http://localhost:3000/');
 });

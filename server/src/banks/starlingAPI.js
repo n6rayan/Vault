@@ -22,7 +22,7 @@ const getAccessToken = async (code) => {
     data: data
   };
 
-  return await axios(options);
+  return await axios(options).data;
 };
 
 module.exports.getAccessToken = getAccessToken;
