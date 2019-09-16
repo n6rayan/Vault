@@ -7,12 +7,14 @@ import { Jumbotron } from 'react-bootstrap';
 import App from './App';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import ReigsterBank from './components/RegisterBank';
 
 const routing = (
   <Router>
     <Route exact path="/" component={App} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
+    <Route path="/register-bank" component={ReigsterBank} />
   </Router>
 );
 
