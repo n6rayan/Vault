@@ -2,13 +2,13 @@ const bodyParser = require('body-parser');
 const config = require('config');
 const cors = require('cors');
 const express = require('express');
-const session = require('express-session')
+const session = require('express-session');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const redis = require('redis');
-const RedisStore = require('connect-redis')(session)
+const RedisStore = require('connect-redis')(session);
 const uuidv1 = require('uuid/v1');
 const uuidv4 = require('uuid/v4');
 

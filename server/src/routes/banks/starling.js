@@ -20,15 +20,15 @@ router.get('/oauth/login', (req, res) => {
 });
 
 router.get('/oauth/redirect', async (req, res) => {
-  // const state = req.query.state;
+  const state = req.query.state;
   const code = req.query.code;
 
   // TODO: FIX ME - Session no persisting
-  // if (state && state !== req.session.ouathState) {
-  //   console.log(req.session.ouathState);
-  //   console.log('State did not match original state');
-  //   return res.status(400).send();
-  // }
+  if (state && state !== req.session.ouathState) {
+    console.log(req.session.ouathState);
+    console.log('State did not match original state');
+    // return res.status(400).send();
+  }
 
   const accessToken = await starling.getAccessToken(code);
   req.session.accessToken = accessToken.data.access_token;
