@@ -20,7 +20,6 @@ router.get('/oauth/login', (req, res) => {
 });
 
 router.get('/oauth/redirect', async (req, res) => {
-  console.log(req.session);
   const state = req.query.state;
   const code = req.query.code;
 
