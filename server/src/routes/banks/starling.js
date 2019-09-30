@@ -4,10 +4,10 @@ const uuid = require('uuid/v1');
 
 const starling = require('../../banks/starlingAPI');
 
-router.get('/oauth/login', (req, res) => {
-  const ouathState = uuid();
-  req.session.ouathState = ouathState;
+const ouathState = uuid();
 
+router.get('/oauth/login', (req, res) => {
+  console.log(req.session);
   const starlingConfig = config.get('starling');
   const clientId = starlingConfig.clientId;
   const redirectUrl = starlingConfig.redirectUrl;
@@ -20,15 +20,13 @@ router.get('/oauth/login', (req, res) => {
 });
 
 router.get('/oauth/redirect', async (req, res) => {
-  // const state = req.query.state;
+  console.log(req.session);
+  const state = req.query.state;
   const code = req.query.code;
 
-  // TODO: FIX ME - Session no persisting
-  // if (state && state !== req.session.ouathState) {
-  //   console.log(req.session.ouathState);
-  //   console.log('State did not match original state');
-  //   return res.status(400).send();
-  // }
+  if (state && state !== ouathState) {
+    return res.status(400).send();
+  }
 
   const accessToken = await starling.getAccessToken(code);
   req.session.accessToken = accessToken.data.access_token;

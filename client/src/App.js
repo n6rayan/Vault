@@ -1,16 +1,16 @@
 import axios from 'axios';
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { PureComponent } from 'react';
 
 import './assets/Vault.css';
 import AccountHome from './components/AccountHome';
+import Welcome from './components/Welcome';
 
-export default class App extends Component {
+export default class App extends PureComponent {
+
   constructor() {
     super();
 
     this.state = {
-      loggedIn: null
     };
 
     this.userSessionExists = this.userSessionExists.bind(this);
@@ -34,44 +34,26 @@ export default class App extends Component {
 
     const response = await axios(options);
 
-    if (response.data.user) {
-      this.setState({
-        loggedIn: 1,
-        username: response.data.user.username
-      });
-    }
-    else {
-      this.setState({
+    if (!response.data.user) {
+      return this.setState({
         loggedIn: 0,
         username: null
       });
     }
+
+    return this.setState({
+      loggedIn: 1,
+      username: response.data.user.username
+    });
+
   }
 
   render() {
-    if (this.state.loggedIn) {
-      return (
-        <div>
-          <AccountHome updateUser={this.updateUser} username={this.state.username}></AccountHome>
-        </div>
-      );
+
+    if (!this.state.loggedIn) {
+      return <Welcome />;
     }
-    else {
-      return (
-        <div>
-          <div align="right">
-            <p>Already registered? <a href="/login">Login</a></p>
-          </div>
 
-          <div className="CenterPage" align="center">
-            <h1>Vault</h1><br />
-
-            <p>Welcome to Vault, your centralised banking application!</p><br />
-
-            <Button variant="primary" href="/signup">Get Started</Button>
-          </div>
-        </div>
-      );
-    }
+    return <AccountHome updateUser={this.updateUser} username={this.state.username} />;
   }
 }

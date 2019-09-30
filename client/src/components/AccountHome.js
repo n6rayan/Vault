@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
-import TopNav from './Navigation/TopNav';
+import Navigation from './Navigation/Navigation';
 
 export default class AccountHome extends Component {
+  static whyDidYouRender = true;
+
   constructor(props) {
     super(props);
 
@@ -12,7 +14,7 @@ export default class AccountHome extends Component {
 
   render() {
     return (
-      <TopNav updateUser={this.props.updateUser} />
+      <Navigation updateUser={this.props.updateUser} username={this.props.username} />
     );
   }
 }

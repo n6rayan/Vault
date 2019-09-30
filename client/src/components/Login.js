@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
-
+import React, { PureComponent } from 'react';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
+import { Redirect } from "react-router-dom";
 
-export default class Login extends Component {
+import ErrorAlert from './ErrorAlert';
+
+export default class Login extends PureComponent {
+
   constructor(props) {
     super(props);
 
@@ -43,13 +45,16 @@ export default class Login extends Component {
       this.setState({ redirectPath: '/' });
     }
     else {
-      this.setState({ redirectPath: '/login' });
+      this.setState({ renderError: true });
     }
   }
 
   render() {
     if (this.state.redirectPath) {
       return (<Redirect to={{ pathname: this.state.redirectPath }} />);
+    }
+    else if (this.state.renderError) {
+      return (<ErrorAlert />);
     }
     else {
       return (
@@ -71,13 +76,13 @@ export default class Login extends Component {
               <div style={{ float: 'left' }}>
                 <Button variant="primary" type="submit">
                   Let's go!
-                  </Button>
+                </Button>
               </div>
 
               <div style={{ float: 'right' }}>
                 <Button variant="primary" href="/">
                   Cancel
-                  </Button>
+                </Button>
               </div>
             </div>
           </Form>

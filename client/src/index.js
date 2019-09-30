@@ -9,6 +9,9 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import ReigsterBank from './components/RegisterBank';
 
+import whyDidYouRender from '@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js';
+whyDidYouRender(React);
+
 const routing = (
   <Router>
     <Route exact path="/" component={App} />

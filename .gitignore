@@ -17,6 +17,7 @@ node_modules/
 
 # Editor extensions
 *.code-workspace
+.DS_Store
 
 # Sessions
 sessions/

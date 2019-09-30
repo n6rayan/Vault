@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
-import { Button, Form, Navbar, Nav } from 'react-bootstrap';
+import { Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
-export default class TopNav extends Component {
+export default class Navigation extends Component {
   constructor(props) {
     super(props);
 
@@ -31,17 +31,21 @@ export default class TopNav extends Component {
 
   render() {
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" sticky="top">
         <Navbar.Brand href="/">Vault</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/register-bank">Add Account</Nav.Link>
             <Nav.Link href="/transactions">Transactions</Nav.Link>
           </Nav>
           <Form inline>
-            <Nav.Link href="/account">My Account</Nav.Link>
-            <Button variant="outline-success" onClick={this.logout}>Logout</Button>
+            <Navbar.Text>Hello, {this.props.username}</Navbar.Text>
+            <NavDropdown title="My Account" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/account">Dashboard</NavDropdown.Item>
+              <NavDropdown.Item href="/register-bank">Add Bank</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={this.logout}>Logout</NavDropdown.Item>
+            </NavDropdown>
           </Form>
         </Navbar.Collapse>
       </Navbar>

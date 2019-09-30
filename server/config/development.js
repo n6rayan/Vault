@@ -4,7 +4,7 @@ module.exports = {
   },
   starling: {
     oauthUrl: 'https://oauth-sandbox.starlingbank.com/?',
-    redirectUrl: 'https://ef21da95.ngrok.io/api/starling/oauth/redirect',
+    redirectUrl: 'https://d01de125.ngrok.io/api/starling/oauth/redirect',
     apiUrl: 'https://api-sandbox.starlingbank.com/oauth/access-token'
   }
 }
