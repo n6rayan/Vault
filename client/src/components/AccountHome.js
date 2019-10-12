@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Navigation from './Navigation/Navigation';
 
 export default class AccountHome extends Component {
-  static whyDidYouRender = true;
 
   constructor(props) {
     super(props);

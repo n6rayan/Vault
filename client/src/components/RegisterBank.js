@@ -23,7 +23,7 @@ export default class RegisterBank extends Component {
         {/* <h1 style={{ fontSize: '50px' }}>Register Bank</h1><br /> */}
 
         <ListGroup>
-          <ListGroup.Item>
+          <ListGroup.Item action href="http://localhost:3001/api/starling/oauth/login">
             <img src={starlingLogo} width="50px" height="50px" alt="Starling" /> Starling
           </ListGroup.Item>
           <ListGroup.Item>
@@ -33,19 +33,6 @@ export default class RegisterBank extends Component {
             <img src={monzoLogo} width="50px" height="50px" alt="Monzo" /> Monzo
           </ListGroup.Item>
         </ListGroup>
-
-        {/* <Container>
-          <Row>
-            <Col>
-              <Card style={{ width: '18rem' }} className="text-center">
-                <Card.Img variant="top" src={starlingLogo} />
-                <Card.Body>
-                  <Button href="http://localhost:3001/api/starling/oauth/login" variant="primary">Authenticate Starling</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container> */}
       </div>
     );
   }

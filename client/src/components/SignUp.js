@@ -84,7 +84,7 @@ export default class SignUp extends Component {
           <div>
             <div style={{ float: 'left' }}>
               <Button variant="primary" type="submit">
-                Let's go!
+                Let&apos;s go!
                 </Button>
             </div>
 

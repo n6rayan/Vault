@@ -3,8 +3,6 @@ import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
-import ErrorAlert from './ErrorAlert';
-
 export default class Login extends PureComponent {
 
   constructor(props) {
@@ -44,17 +42,11 @@ export default class Login extends PureComponent {
     if (result.data.success) {
       this.setState({ redirectPath: '/' });
     }
-    else {
-      this.setState({ renderError: true });
-    }
   }
 
   render() {
     if (this.state.redirectPath) {
       return (<Redirect to={{ pathname: this.state.redirectPath }} />);
-    }
-    else if (this.state.renderError) {
-      return (<ErrorAlert />);
     }
     else {
       return (
@@ -75,7 +67,7 @@ export default class Login extends PureComponent {
             <div>
               <div style={{ float: 'left' }}>
                 <Button variant="primary" type="submit">
-                  Let's go!
+                  Let&apos;s go!
                 </Button>
               </div>
 
