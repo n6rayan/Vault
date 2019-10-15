@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { PureComponent } from 'react';
 
+import MainRouter from './components/Navigation/MainRouter';
+import WelcomeRouter from './components/Navigation/WelcomeRouter';
+
 import './assets/Vault.css';
-import AccountHome from './components/AccountHome';
-import Welcome from './components/Welcome';
 
 export default class App extends PureComponent {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
     };
@@ -51,9 +52,9 @@ export default class App extends PureComponent {
   render() {
 
     if (!this.state.loggedIn) {
-      return <Welcome />;
+      return <WelcomeRouter updateUser={this.updateUser} />;
     }
 
-    return <AccountHome updateUser={this.updateUser} username={this.state.username} />;
+    return <MainRouter username={this.state.username} updateUser={this.updateUser} />;
   }
 }
