@@ -1,20 +1,22 @@
 import React, { PureComponent } from 'react';
+
 import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
+
+import LoginForm from './LoginForm';
 
 export default class Login extends PureComponent {
 
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this);
-
     this.state = {
       username: '',
       password: ''
     };
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -37,49 +39,20 @@ export default class Login extends PureComponent {
 
     const result = await axios(options);
 
-    this.form.reset();
-
     if (result.data.success) {
-      this.setState({ redirectPath: '/' });
+      this.setState({ redirectPath: '/account' });
+
+      window.location.reload();
     }
   }
 
   render() {
     if (this.state.redirectPath) {
-      return (<Redirect to={{ pathname: this.state.redirectPath }} />);
+      return <Redirect to={{ pathname: this.state.redirectPath }} />;
     }
-    else {
-      return (
-        <div>
-          <h1 style={{ fontSize: '50px' }}>Login...</h1><br />
 
-          <Form onSubmit={this.handleSubmit} ref={form => this.form = form}>
-            <Form.Group>
-              <Form.Label>Username</Form.Label>
-              <Form.Control value={this.state.username} name="username" type="text" placeholder="Enter username..." onChange={this.handleChange} />
-            </Form.Group>
+    const { username, password } = this.state;
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control value={this.state.password} name="password" type="password" placeholder="Enter password..." onChange={this.handleChange} />
-            </Form.Group>
-
-            <div>
-              <div style={{ float: 'left' }}>
-                <Button variant="primary" type="submit">
-                  Let&apos;s go!
-                </Button>
-              </div>
-
-              <div style={{ float: 'right' }}>
-                <Button variant="primary" href="/">
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          </Form>
-        </div>
-      );
-    }
+    return <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} username={username} password={password} />;
   }
 }
