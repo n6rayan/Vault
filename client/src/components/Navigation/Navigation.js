@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import axios from 'axios';
 import { Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
-export default class Navigation extends Component {
+export default class Navigation extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -26,23 +26,25 @@ export default class Navigation extends Component {
 
     if (response.data.success) {
       this.props.updateUser({ loggedIn: 0 });
+
+      window.location.href = "/";
     }
   }
 
   render() {
     return (
       <Navbar bg="light" expand="lg" sticky="top">
-        <Navbar.Brand href="/">Vault</Navbar.Brand>
+        <Navbar.Brand href="/account">Vault</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/transactions">Transactions</Nav.Link>
+            <Nav.Link href="/account/transactions">Transactions</Nav.Link>
           </Nav>
           <Form inline>
             <Navbar.Text>Hello, {this.props.username}</Navbar.Text>
             <NavDropdown title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/account">Dashboard</NavDropdown.Item>
-              <NavDropdown.Item href="/register-bank">Add Bank</NavDropdown.Item>
+              <NavDropdown.Item href="/account/register-bank">Add Bank</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={this.logout}>Logout</NavDropdown.Item>
             </NavDropdown>
