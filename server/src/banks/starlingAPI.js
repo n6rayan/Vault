@@ -13,16 +13,14 @@ const getAccessToken = async (code) => {
     redirect_uri: starlingConfig.redirectUrl
   });
 
-  const options = {
+  return await axios({
     method: 'POST',
     url: starlingConfig.apiUrl,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     data: data
-  };
-
-  return await axios(options);
+  });
 };
 
 module.exports.getAccessToken = getAccessToken;
