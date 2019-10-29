@@ -4,8 +4,6 @@ import React, { PureComponent } from 'react';
 import MainRouter from './components/Navigation/MainRouter';
 import WelcomeRouter from './components/Navigation/WelcomeRouter';
 
-import './assets/Vault.css';
-
 export default class App extends PureComponent {
 
   constructor(props) {
