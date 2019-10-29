@@ -17,6 +17,7 @@ export default class Login extends PureComponent {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.alertStateHandler = this.alertStateHandler.bind(this);
   }
 
   handleChange(event) {
@@ -42,17 +43,31 @@ export default class Login extends PureComponent {
     if (result.data.success) {
       this.setState({ redirectPath: '/account' });
 
-      window.location.reload();
+      return window.location.reload();
     }
+
+    return this.setState({ showAlert: true });
+  }
+
+  alertStateHandler(isVisible) {
+    this.setState({ showAlert: isVisible });
   }
 
   render() {
+
     if (this.state.redirectPath) {
       return <Redirect to={{ pathname: this.state.redirectPath }} />;
     }
 
     const { username, password } = this.state;
 
-    return <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} username={username} password={password} />;
+    return <LoginForm
+      handleSubmit={this.handleSubmit}
+      handleChange={this.handleChange}
+      username={username}
+      password={password}
+      showAlert={this.state.showAlert}
+      alertStateHandler={this.alertStateHandler}
+    />;
   }
 }
