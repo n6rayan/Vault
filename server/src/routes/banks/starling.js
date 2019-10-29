@@ -7,7 +7,6 @@ const starling = require('../../banks/starlingAPI');
 const ouathState = uuid();
 
 router.get('/oauth/login', (req, res) => {
-  console.log(req.session);
   const starlingConfig = config.get('starling');
   const clientId = starlingConfig.clientId;
   const redirectUrl = starlingConfig.redirectUrl;
@@ -16,7 +15,9 @@ router.get('/oauth/login', (req, res) => {
 
   const url = `${starlingOauthUrl}client_id=${clientId}&response_type=code&state=${ouathState}&redirect_uri=${redirectUrl}`;
 
-  res.redirect(url);
+  req.session.save(() => {
+    res.redirect(url);
+  });
 });
 
 router.get('/oauth/redirect', async (req, res) => {
@@ -28,10 +29,13 @@ router.get('/oauth/redirect', async (req, res) => {
   }
 
   const accessToken = await starling.getAccessToken(code);
-  req.session.accessToken = accessToken.data.access_token;
-  req.session.refreshToken = accessToken.data.refresh_token;
 
-  res.redirect('http://localhost:3000/');
+  req.session.reload(() => {
+    req.session.accessToken = accessToken.data.access_token;
+    req.session.refreshToken = accessToken.data.refresh_token;
+
+    res.redirect('http://localhost:3000/account');
+  });
 });
 
 module.exports = router;
