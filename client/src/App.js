@@ -27,7 +27,7 @@ export default class App extends PureComponent {
   async userSessionExists() {
     const options = {
       method: 'GET',
-      url: 'http://localhost:3001/api/current-user',
+      url: 'http://vault.io:3001/api/current-user',
       withCredentials: true
     };
 
