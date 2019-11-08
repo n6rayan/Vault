@@ -4,7 +4,10 @@ module.exports = {
   },
   starling: {
     oauthUrl: 'https://oauth-sandbox.starlingbank.com/?',
-    redirectUrl: 'https://d01de125.ngrok.io/api/starling/oauth/redirect',
-    apiUrl: 'https://api-sandbox.starlingbank.com/oauth/access-token'
-  }
+    apiUrl: 'https://api-sandbox.starlingbank.com'
+  },
+  vault: {
+    apiUrl: 'http://vault.io:3001/api',
+    clientUrl: 'http://vault.io:3000'
+  },
 }
