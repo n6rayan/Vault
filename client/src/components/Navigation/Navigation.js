@@ -18,7 +18,7 @@ export default class Navigation extends PureComponent {
 
     const options = {
       method: 'GET',
-      url: 'http://localhost:3001/api/logout',
+      url: 'http://vault.io:3001/api/logout',
       withCredentials: true
     };
 
