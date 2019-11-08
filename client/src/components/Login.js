@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 
-import LoginForm from './LoginForm';
+import LoginForm from './Forms/LoginForm';
 
 export default class Login extends PureComponent {
 
@@ -34,7 +34,7 @@ export default class Login extends PureComponent {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify(this.state),
-      url: 'http://localhost:3001/api/login',
+      url: 'http://vault.io:3001/api/login',
       withCredentials: true
     };
 
