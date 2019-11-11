@@ -43,9 +43,29 @@ router.get('/oauth/redirect', async (req, res) => {
 });
 
 router.get('/accounts', async (req, res) => {
-  const accounts = await starling.getAccountsList(req.session.accessToken);
+  const accountsRequest = await starling.getAccountsList(req.session.accessToken);
 
-  res.send(accounts.data);
+  const accountUids = accountsRequest.data.accounts.map(account => {
+    return account.accountUid;
+  });
+
+  let accountsInfo = [];
+
+  for (const accountId of accountUids) {
+    const accountIds = await starling.getAccountInfo(req.session.accessToken, accountId);
+    const accountBalance = await starling.getAccountBalance(req.session.accessToken, accountId);
+
+    const normalizedAccountInfo = {
+      name: 'Starling',
+      accNumber: accountIds.data.accountIdentifier,
+      sortCode: accountIds.data.bankIdentifier,
+      balance: accountBalance.data.amount.minorUnits,
+    };
+
+    accountsInfo.push(normalizedAccountInfo);
+  }
+
+  res.send(accountsInfo);
 });
 
 module.exports = router;
