@@ -18,7 +18,7 @@ export default class Transactions extends Component {
       withCredentials: true
     });
 
-    this.setState(accounts);
+    this.setState(accounts.data);
   }
 
   render() {
