@@ -47,5 +47,37 @@ const getAccountsList = async (token) => {
   }
 }
 
+const getAccountInfo = async (token, accountUid) => {
+  try {
+    return await axios({
+      method: 'GET',
+      url: `${starlingConfig.apiUrl}/api/v2/accounts/${accountUid}/identifiers`,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+  catch (err) {
+    log.error(`Problem getting account information: ${err}`)
+  }
+};
+
+const getAccountBalance = async (token, accountUid) => {
+  try {
+    return await axios({
+      method: 'GET',
+      url: `${starlingConfig.apiUrl}/api/v2/accounts/${accountUid}/balance`,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+  catch (err) {
+    log.error(`Problem getting account balance: ${err}`)
+  }
+};
+
 module.exports.getAccessToken = getAccessToken;
 module.exports.getAccountsList = getAccountsList;
+module.exports.getAccountInfo = getAccountInfo;
+module.exports.getAccountBalance = getAccountBalance;
