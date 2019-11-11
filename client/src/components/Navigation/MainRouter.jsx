@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from "react-router-dom";
 
+import Accounts from '../MainApp/Accounts';
 import Main from '../MainApp/Main';
 import Navigation from './Navigation';
 import RegisterBank from '../MainApp/RegisterBank';
@@ -16,6 +17,7 @@ const MainRouter = (props) => {
       <Route path="/account" exact component={Main} />
       <Route path="/account/register-bank" component={RegisterBank} />
       <Route path="/account/transactions" component={Transactions} />
+      <Route path="/account/accounts-list" component={Accounts} />
     </div>
   );
 };

@@ -39,6 +39,7 @@ export default class Navigation extends PureComponent {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/account/transactions">Transactions</Nav.Link>
+            <Nav.Link href="/account/accounts-list">Accounts</Nav.Link>
           </Nav>
           <Form inline>
             <NavDropdown title="My Account" id="collasible-nav-dropdown">
