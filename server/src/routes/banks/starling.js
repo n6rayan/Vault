@@ -1,11 +1,14 @@
 const config = require('config');
 const router = require('express').Router();
+const fs = require('fs');
 const uuid = require('uuid/v1');
 
-const starling = require('../../banks/starlingAPI');
+const StarlingAPI = require('../../banks/starlingAPI');
 
 const vaultConfig = config.get('vault');
 const ouathState = uuid();
+
+const starling = new StarlingAPI();
 
 router.get('/oauth/login', (req, res) => {
   const starlingConfig = config.get('starling');
@@ -59,13 +62,22 @@ router.get('/accounts', async (req, res) => {
       name: 'Starling',
       accNumber: accountIds.data.accountIdentifier,
       sortCode: accountIds.data.bankIdentifier,
-      balance: accountBalance.data.amount.minorUnits,
+      balance: accountBalance.data.availableToSpend.minorUnits,
+      currency: accountBalance.data.availableToSpend.currency,
+      uid: accountId,
     };
 
     accountsInfo.push(normalizedAccountInfo);
   }
 
   res.send(accountsInfo);
+});
+
+router.get('/statement/:accountId', async (req, res) => {
+  const statement = await starling.getCurrentStatement(req.session.accessToken, req.params.accountId);
+  console.log(statement.data);
+
+  res.contentType('application/pdf').send(statement.data);
 });
 
 module.exports = router;
