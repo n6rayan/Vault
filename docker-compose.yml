@@ -14,7 +14,7 @@ services:
       - ./server/src:/srv/app/vault-server/src
     command: npm start
 
-  server:
+  client:
     build: ./client
     expose:
       - ${REACT_APP_PORT}
