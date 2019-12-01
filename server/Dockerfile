@@ -5,7 +5,7 @@ RUN mkdir -p /srv/app/vault-server
 RUN pwd
 RUN ls -la
 
-COPY server/. /srv/app/vault-server
+COPY . /srv/app/vault-server
 
 WORKDIR /srv/app/vault-server
 
