@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   server:
     build: ./server
     expose:
@@ -12,6 +13,8 @@ services:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     volumes:
       - ./server/src:/srv/app/vault-server/src
+    depends_on:
+      - mongo
     command: npm start
 
   client:
@@ -28,3 +31,12 @@ services:
     links:
       - server
     command: npm start
+    
+  redis:
+    image: redis
+    links:
+      - server
+
+  mongo:
+    image: mongodb
+    ports: "27017:27017"
