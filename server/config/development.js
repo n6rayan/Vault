@@ -6,8 +6,7 @@ module.exports = {
     oauthUrl: 'https://oauth-sandbox.starlingbank.com/?',
     apiUrl: 'https://api-sandbox.starlingbank.com'
   },
-  vault: {
-    apiUrl: 'http://vault.io:3001/api',
-    clientUrl: 'http://vault.io:3000'
-  },
+  redis: {
+    host: "127.0.0.1"
+  }
 }
