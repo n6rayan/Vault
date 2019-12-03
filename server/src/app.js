@@ -17,7 +17,7 @@ const log = require('./logger');
 const routes = require('./routes');
 
 const app = express();
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({host: config.get('redis.host')});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
