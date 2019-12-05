@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
-    "test": "mocha --exit"
+    "test": "mocha test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -44,5 +44,10 @@
     "redis": "^2.8.0",
     "uuid": "^3.3.3",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2"
   }
 }
