@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
-    "test": "mocha test/**/*.js --exit"
+    "test": "VAULT_LOG_LEVEL='error' mocha test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "mock-mongoose": "^7.4.0-r2"
   }
 }
