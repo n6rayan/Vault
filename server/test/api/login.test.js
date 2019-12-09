@@ -46,9 +46,11 @@ describe('Login/Log Out Routes', function () {
     expect(response.body.message).to.equal('Successfully logged in!');
   });
 
-  it('should log user in', async function () {
-    // await chai.request(app).post('/api/login').send({ username: 'username', password: 'password' });
+  // TODO: Test api/current-user route
+  // Add way to generate cookie
+  it('should get current user', async function () {
     const response = await chai.request(app).get('/api/current-user');
+    console.log(response);
   });
 
   it('should log user out', async function () {
