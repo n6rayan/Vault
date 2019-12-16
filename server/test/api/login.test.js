@@ -29,9 +29,12 @@ describe('Login/Log Out Routes', function () {
 
   before(function (done) {
     this.timeout(0);
+
+    const userData = require('../fixtures/user');
+
     mockgoose.prepareStorage().then(async function () {
       mongoose.connect('mongodb://example.com/TestingDB', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-        const user = new User({ username: 'username', password: 'password', phone: '07123456789', email: 'username@email.com', name: 'User Name' })
+        const user = new User(userData);
 
         user.save();
         done(err);
@@ -48,9 +51,8 @@ describe('Login/Log Out Routes', function () {
 
   // TODO: Test api/current-user route
   // Add way to generate cookie
-  it('should get current user', async function () {
+  xit('should get current user', async function () {
     const response = await chai.request(app).get('/api/current-user');
-    console.log(response);
   });
 
   it('should log user out', async function () {
