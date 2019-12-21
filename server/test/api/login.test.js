@@ -1,11 +1,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-var mongoose = require('mongoose');
-var Mockgoose = require('mock-mongoose').Mockgoose;
-var mockgoose = new Mockgoose(mongoose);
-const User = require('../../src/database/models/User');
+const passport = require('passport');
+const redis = require('redis');
+const mockRedis = require('redis-mock');
+const sinon = require('sinon');
 
 const app = require('../../src/app');
+const helpers = require('../../src/helpers');
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -27,19 +28,18 @@ describe('Login Route - Errors', function () {
 
 describe('Login/Log Out Routes', function () {
 
-  before(function (done) {
-    this.timeout(0);
-
+  before(function () {
     const userData = require('../fixtures/user');
 
-    mockgoose.prepareStorage().then(async function () {
-      mongoose.connect('mongodb://example.com/TestingDB', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-        const user = new User(userData);
+    // sinon.stub(helpers, "findUser").resolves(userData);
 
-        user.save();
-        done(err);
-      });
+    sinon.stub(redis, "createClient").resolves(mockRedis.createClient({}));
+
+    sinon.stub(passport, "authenticate").callsFake((strategy, callback) => {
+      callback(null, { "username": "test@techbrij.com" }, null);
+      return (req, res, next) => { };
     });
+    sinon.stub(passport, "serializeUser").yields({});
   });
 
   it('should log user in', async function () {
@@ -47,6 +47,10 @@ describe('Login/Log Out Routes', function () {
 
     expect(response.body.success).to.equal(1);
     expect(response.body.message).to.equal('Successfully logged in!');
+  });
+
+  after(function () {
+    sinon.restore();
   });
 
   // TODO: Test api/current-user route
