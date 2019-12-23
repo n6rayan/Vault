@@ -9,5 +9,8 @@ module.exports = {
   starling: {
     clientId: 'f853knrVYfhuV4ytrKfE',
     clientSecret: '0uMqJeqjzLNaUXD2mMpVygr7jF53akRy6ToyNZCe'
+  },
+  jwt: {
+    secret: 'PyXqNfZBfiGy87pw'
   }
 }

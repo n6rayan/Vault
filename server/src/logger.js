@@ -15,7 +15,7 @@ const log = winston.createLogger({
       format: formatOpts,
     }),
     new winston.transports.File({
-      filename: `${root}/logs/vault.log`,
+      filename: process.env.VAULT_LOG_FILE || `${root}/logs/vault.log`,
       level: process.env.VAULT_LOG_LEVEL || 'info',
       format: formatOpts,
     }),
