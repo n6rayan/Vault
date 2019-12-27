@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
 
       const token = jwt.sign(payload, config.get('jwt.secret'));
 
-      return res.cookie('jwt', token).send({
+      return res.cookie('jwt', token, {httpOnly: true}).send({
         success: 1,
         message: 'Successfully logged in!',
         user: req.user.username,
