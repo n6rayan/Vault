@@ -1,11 +1,12 @@
 const config = require('config');
 const router = require('express').Router();
-const fs = require('fs');
 const uuid = require('uuid/v1');
 
 const StarlingAPI = require('../../banks/starlingAPI');
+const helpers = require('../../helpers');
 
 const vaultConfig = config.get('vault');
+const jwtSecret = config.get('jwt.secret');
 const ouathState = uuid();
 
 const starling = new StarlingAPI();
@@ -19,10 +20,7 @@ router.get('/oauth/login', (req, res) => {
 
   const url = `${starlingOauthUrl}client_id=${clientId}&response_type=code&state=${ouathState}&redirect_uri=${redirectUrl}`;
 
-  req.session.save((err) => {
-    if (err) console.log(`THERE WAS AN ERROR SAVING THE SESSION: ${err}`);
-    res.redirect(url);
-  });
+  res.redirect(url);
 });
 
 router.get('/oauth/redirect', async (req, res) => {
@@ -33,20 +31,15 @@ router.get('/oauth/redirect', async (req, res) => {
     return res.status(400).send();
   }
 
-  const accessToken = await starling.getAccessToken(code);
+  const tokens = await starling.getAccessToken(code);
+  const jwt = helpers.storingTokensAgainstJWT(req.cookies.jwt, tokens.data, jwtSecret);
 
-  req.session.reload((err) => {
-    if (err) console.log(`THERE WAS AN ERROR LOADING THE SESSION: ${err}`);
-
-    req.session.accessToken = accessToken.data.access_token;
-    req.session.refreshToken = accessToken.data.refresh_token;
-
-    res.redirect(`${vaultConfig.clientUrl}/account`);
-  });
+  res.cookie('jwt', jwt, { httpOnly: true }).redirect(`${vaultConfig.clientUrl}/account`);
 });
 
 router.get('/accounts', async (req, res) => {
-  const accountsRequest = await starling.getAccountsList(req.session.accessToken);
+  const accessToken = helpers.jwtVerify(req.cookies.jwt, jwtSecret).accessToken;
+  const accountsRequest = await starling.getAccountsList(accessToken);
 
   const accountUids = accountsRequest.data.accounts.map(account => {
     return account.accountUid;
@@ -55,15 +48,15 @@ router.get('/accounts', async (req, res) => {
   let accountsInfo = [];
 
   for (const accountId of accountUids) {
-    const accountIds = await starling.getAccountInfo(req.session.accessToken, accountId);
-    const accountBalance = await starling.getAccountBalance(req.session.accessToken, accountId);
+    const accountIds = await starling.getAccountInfo(accessToken, accountId);
+    const accountBalance = await starling.getAccountBalance(accessToken, accountId);
 
     const normalizedAccountInfo = {
       name: 'Starling',
       accNumber: accountIds.data.accountIdentifier,
       sortCode: accountIds.data.bankIdentifier,
-      balance: accountBalance.data.availableToSpend.minorUnits,
-      currency: accountBalance.data.availableToSpend.currency,
+      balance: accountBalance.data.amount.minorUnits,
+      currency: accountBalance.data.amount.currency,
       uid: accountId,
     };
 
@@ -74,8 +67,8 @@ router.get('/accounts', async (req, res) => {
 });
 
 router.get('/statement/:accountId', async (req, res) => {
-  const statement = await starling.getCurrentStatement(req.session.accessToken, req.params.accountId);
-  console.log(statement.data);
+  const accessToken = helpers.jwtVerify(req.cookies.jwt, jwtSecret).accessToken;
+  const statement = await starling.getCurrentStatement(accessToken, req.params.accountId);
 
   res.contentType('application/pdf').send(statement.data);
 });
