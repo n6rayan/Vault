@@ -1,7 +1,4 @@
 module.exports = {
-  session: {
-    secret: '-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVm'
-  },
   vault: {
     apiUrl: 'http://vault.io:3001/api',
     clientUrl: 'http://vault.io:3000'
