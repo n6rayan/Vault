@@ -19,7 +19,6 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(helmet());
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 morgan.token('reqid', req => req.reqid);
 
