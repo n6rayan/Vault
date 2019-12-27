@@ -8,14 +8,12 @@ module.exports = new LocalStrategy(async (username, password, done) => {
   try {
     user = await helpers.findUser(username);
 
-    const message = 'Incorrect credentials!';
-
     if (!user) {
-      return done(null, false, { message: message });
+      return done(null, false);
     }
 
     if (password !== user.password) {
-      return done(null, false, { message: message })
+      return done(null, false);
     }
   }
   catch (err) {
