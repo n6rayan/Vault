@@ -32,7 +32,7 @@ router.get('/oauth/redirect', async (req, res) => {
   }
 
   const tokens = await starling.getAccessToken(code);
-  const jwt = helpers.storeTokensAgainstSession(req.cookies.jwt, tokens.data, jwtSecret);
+  const jwt = helpers.storingTokensAgainstJWT(req.cookies.jwt, tokens.data, jwtSecret);
 
   res.cookie('jwt', jwt, { httpOnly: true }).redirect(`${vaultConfig.clientUrl}/account`);
 });
