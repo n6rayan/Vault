@@ -7,7 +7,7 @@
     "start": "VAULT_LOG_FILE='/var/log/vault.log' nodemon src/app.js",
     "dev": "nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
-    "test": "NODE_ENV='test' VAULT_LOG_LEVEL='error' mocha test/**/*.js --exit"
+    "test": "NODE_ENV='test' VAULT_LOG_LEVEL='silent' mocha test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
