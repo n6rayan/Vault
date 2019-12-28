@@ -7,7 +7,7 @@
     "start": "VAULT_LOG_FILE='/var/log/vault.log' nodemon src/app.js",
     "dev": "nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
-    "test": "VAULT_LOG_LEVEL='error' mocha test/**/*.js --exit"
+    "test": "NODE_ENV='test' VAULT_LOG_LEVEL='error' mocha test/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -50,7 +50,6 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^6.2.2",
-    "redis-mock": "^0.47.0",
     "sinon": "^7.5.0"
   }
 }
