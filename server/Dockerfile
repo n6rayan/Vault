@@ -6,6 +6,6 @@ COPY . /srv/app/vault-server
 
 WORKDIR /srv/app/vault-server
 
-RUN npm install
+RUN npm install && npm test
 
 CMD ["npm", "run", "docker"]
