@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { createBrowserHistory } from 'history';
 import PropTypes from 'prop-types';
-import { Route } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 
 import Accounts from '../MainApp/Accounts';
 import Main from '../MainApp/Main';
@@ -14,10 +15,12 @@ const MainRouter = (props) => {
     <div>
       <Navigation username={props.username} updateUser={props.updateUser} />
 
-      <Route path="/account" exact component={Main} />
-      <Route path="/account/register-bank" component={RegisterBank} />
-      <Route path="/account/transactions" component={Transactions} />
-      <Route path="/account/accounts-list" component={Accounts} />
+      <Router history={createBrowserHistory()}>
+        <Route path="/account" exact component={Main} />
+        <Route path="/account/register-bank" component={RegisterBank} />
+        <Route path="/account/transactions" component={Transactions} />
+        <Route path="/account/accounts-list" component={Accounts} />
+      </Router>
     </div>
   );
 };
