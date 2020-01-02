@@ -1,7 +1,7 @@
 import React from 'react';
+import { Route } from "react-router-dom";
 
 import PropTypes from 'prop-types';
-import { Route } from "react-router-dom";
 
 import Welcome from '../Welcome';
 import Login from '../Login';
