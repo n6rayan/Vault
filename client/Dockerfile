@@ -6,6 +6,6 @@ COPY . /srv/app/vault-client
 
 WORKDIR /srv/app/vault-client
 
-RUN npm install && npm test
+RUN npm install
 
 CMD ["npm", "start"]
