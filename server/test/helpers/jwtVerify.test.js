@@ -5,7 +5,9 @@ const jwtVerify = require('../../src/helpers/jwtVerify');
 describe('Testing JWT Verification Helper', function () {
 
   it('should return a malformed jwt error', function () {
-    chai.assert.throws(function () { jwtVerify('blah', 'blah') }, 'jwt malformed');
+    chai.assert.throws(function () {
+      jwtVerify('blah', 'blah');
+    }, 'jwt malformed');
   });
 
   it('should return a decoded JWT', function () {

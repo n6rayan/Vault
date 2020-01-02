@@ -7,6 +7,6 @@ module.exports = {
     apiUrl: 'https://api-sandbox.starlingbank.com'
   },
   redis: {
-    host: "127.0.0.1"
+    host: '127.0.0.1'
   }
-}
+};

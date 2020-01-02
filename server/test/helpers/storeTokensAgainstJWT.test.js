@@ -6,7 +6,9 @@ const jwtModify = require('../../src/helpers/storingTokensAgainstJWT');
 describe('Testing JWT Modification Helper', function () {
 
   it('should return a malformed jwt error', function () {
-    chai.assert.throws(function () { jwtModify('blah', 'blah') }, 'jwt malformed');
+    chai.assert.throws(function () {
+      jwtModify('blah', 'blah');
+    }, 'jwt malformed');
   });
 
   it('should return a JWT and include new modifications', function () {

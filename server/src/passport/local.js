@@ -18,7 +18,7 @@ module.exports = new LocalStrategy(async (username, password, done) => {
   }
   catch (err) {
     return done(err);
-  };
+  }
 
   return done(null, user);
 });

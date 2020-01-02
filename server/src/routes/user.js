@@ -11,7 +11,7 @@ router.post('/user', async (req, res) => {
 
     return res.status(200).send({
       success: 1,
-      message: "User created!"
+      message: 'User created!'
     });
   }
   catch (err) {
@@ -19,7 +19,7 @@ router.post('/user', async (req, res) => {
 
     return res.status(400).send({
       success: 0,
-      error: "Unable to create user!"
+      error: 'Unable to create user!'
     });
   }
 });

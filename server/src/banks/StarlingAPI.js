@@ -64,7 +64,7 @@ class StarlingAPI {
       });
     }
     catch (err) {
-      log.error(`Problem getting account information: ${err}`)
+      log.error(`Problem getting account information: ${err}`);
     }
   }
 
@@ -79,7 +79,7 @@ class StarlingAPI {
       });
     }
     catch (err) {
-      log.error(`Problem getting account balance: ${err}`)
+      log.error(`Problem getting account balance: ${err}`);
     }
   }
 
