@@ -25,9 +25,13 @@ export default class App extends PureComponent {
   }
 
   async userSessionExists() {
-    const response = await axios.get('http://vault.io:3001/api/current-user', {
+    const options = {
+      method: 'GET',
+      url: 'http://vault.io:3001/api/current-user',
       withCredentials: true
-    });
+    };
+
+    const response = await axios(options);
 
     if (!response.data.user) {
       return this.setState({
