@@ -18,7 +18,7 @@ describe('User Routes', function () {
   });
 
   it('should create a user', async function () {
-    const userData = require('../fixtures/user');
+    const userData = require('../fixtures/user/user');
     sinon.stub(Database.prototype, "createUser").resolves(userData);
 
     const response = await chai.request(app).post('/api/user').send(userData);

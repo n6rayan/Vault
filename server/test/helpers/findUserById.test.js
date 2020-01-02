@@ -7,7 +7,7 @@ const findUserById = require('../../src/helpers/findUserById');
 describe('Testing Find User By ID Helper', function () {
 
   before(function() {
-    const userData = require('../fixtures/db-user');
+    const userData = require('../fixtures/user/db-user');
     sinon.stub(Database.prototype, "getUserById").resolves(userData);
   });
 

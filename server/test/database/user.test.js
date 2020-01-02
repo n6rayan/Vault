@@ -7,8 +7,8 @@ const db = new Database();
 
 describe('Test Database User Functions', function () {
 
-  const userData = require('../fixtures/user');
-  const dbUserData = require('../fixtures/db-user');
+  const userData = require('../fixtures/user/user');
+  const dbUserData = require('../fixtures/user/db-user');
 
   it('should create user', async function () {
     sinon.stub(Database.prototype, "createUser").returns(dbUserData);
