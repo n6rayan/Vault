@@ -44,4 +44,6 @@ app.use('/api', routes);
 
 const port = process.env.PORT || 3001;
 
-app.listen(port, () => log.info(`Server started: http://localhost:${port}/`));
+app.listen(port, () => log.info(`Server started on ${port}`));
+
+module.exports = app;

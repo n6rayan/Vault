@@ -7,7 +7,7 @@
     "start": "VAULT_LOG_FILE='/var/log/vault.log' nodemon src/app.js",
     "dev": "nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
-    "test": "mocha --exit",
+    "test": "NODE_ENV='test' VAULT_LOG_LEVEL='silent' mocha test/**/*.js --exit",
     "lint": "eslint . --fix --ext .js"
   },
   "repository": {
@@ -50,6 +50,9 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0",
     "eslint": "^6.8.0"
   }
 }

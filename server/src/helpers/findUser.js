@@ -5,10 +5,8 @@ const Database = require('../database');
  * @param {String} username
  * @returns {Object} Returns the details of the user
  */
-const findUser = async (username) => {
+module.exports = async (username) => {
   const db = new Database();
 
   return await db.getUserByUsername(username);
 };
-
-module.exports = findUser;
