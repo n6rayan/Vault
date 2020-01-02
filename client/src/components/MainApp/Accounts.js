@@ -32,15 +32,15 @@ export default class Accounts extends Component {
       url: `http://vault.io:3001/api/starling/statement/${accountId}`,
       withCredentials: true,
       headers: {
-        'Content-Type': 'application/pdf',
-        'Accept': 'application/pdf',
+        'Content-Type': 'text/csv',
+        'Accept': 'text/csv',
       },
       responseType: 'blob'
     });
 
-    const pdf = new Blob([statement.data], { type: 'application/pdf;charset=utf-8' });
+    const csv = new Blob([statement.data], { type: 'text/csv;charset=utf-8' });
 
-    return saveAs(pdf, `${accountId}-statement.pdf`);
+    return saveAs(csv, `${accountId}-statement.csv`);
   }
 
   render() {
