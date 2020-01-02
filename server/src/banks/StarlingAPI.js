@@ -1,6 +1,7 @@
 'use strict';
 const axios = require('axios');
 const config = require('config');
+const moment = require('moment');
 const qs = require('query-string');
 
 const log = require('../logger');
@@ -12,6 +13,11 @@ class StarlingAPI {
     this.vaultConfig = config.get('vault');
   }
 
+  /**
+   * Retrieves access token to use to authenticate API requests
+   * @param {String} code
+   * @returns {Object} Returns `access_token`, `refresh_token`, `token_type`, `expires_in` and `scope`
+   */
   async getAccessToken(code) {
     const redirectUrl = `${this.vaultConfig.apiUrl}/starling/oauth/redirect`;
 
@@ -38,6 +44,11 @@ class StarlingAPI {
     }
   }
 
+  /**
+   * Retrieves list of accounts associated with user
+   * @param {String} token
+   * @returns {Object} Returns object with an array of accounts with `accountUid`, `defaultCategory`, `currency` and `createdAt`
+   */
   async getAccountsList(token) {
     try {
       return await axios({
@@ -53,6 +64,12 @@ class StarlingAPI {
     }
   }
 
+  /**
+   * Retrieves the account information for the specified account
+   * @param {String} token
+   * @param {String} accountUid
+   * @returns {Object} Returns `accountIdentifier`, `bankIdentifier`, `iban` and `bic`
+   */
   async getAccountInfo(token, accountUid) {
     try {
       return await axios({
@@ -68,6 +85,12 @@ class StarlingAPI {
     }
   }
 
+  /**
+   * Retrieves the account balance for the specified account
+   * @param {String} token
+   * @param {String} accountUid
+   * @returns {Object} Returns various balance information
+   */
   async getAccountBalance(token, accountUid) {
     try {
       return await axios({
@@ -83,17 +106,25 @@ class StarlingAPI {
     }
   }
 
+  /**
+   * Retrieves the statement for the current month to date
+   * @param {String} token
+   * @param {String} accountUid
+   * @returns {File} Downloads a CSV file with a list of transactions
+   */
   async getCurrentStatement(token, accountUid) {
+    const date = moment().format('YYYY-MM');
+
     try {
       return await axios({
         method: 'GET',
         url: `${this.starlingConfig.apiUrl}/api/v2/accounts/${accountUid}/statement/download`,
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/pdf',
+          Authorization: `Bearer ${token}`,
+          Accept: 'text/csv',
         },
         params: {
-          yearMonth: '2019-11'
+          yearMonth: date
         }
       });
     }
