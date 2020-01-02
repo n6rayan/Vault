@@ -46,4 +46,4 @@ Run the tests to make sure everything is okay. To do this simply run: `npm test`
 
 To test the API once it is spun up, you can use the following curl command to create a user in the database:
 
-```curl -H "Content-Type: application/json" -X POST http://vault.io:3001/user -d '{ "username": "username", "password": "password", "phone": "07123456789", "email": "username@email.com", "name": "User Name" }'```
+```curl -H "Content-Type: application/json" -X POST http://vault.io:3001/api/user -d '{ "username": "username", "password": "password", "phone": "07123456789", "email": "username@email.com", "name": "User Name" }'```
