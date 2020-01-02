@@ -17,7 +17,7 @@ class Database {
       });
     }
     catch (err) {
-      throw Error(`Error connecting to database: [ ${err} ]`)
+      throw Error(`Error connecting to database: [ ${err} ]`);
     }
   }
 
