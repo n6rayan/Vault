@@ -17,7 +17,7 @@ describe('Login Route - Errors', function () {
   });
 
   it('should return incorrect credentials error', async function () {
-    const userData = require('../fixtures/user/user');
+    const userData = require('../fixtures/user/db-user');
     sinon.stub(helpers, "findUser").resolves(userData);
 
     const response = await chai.request(app).post('/api/login').send({ username: 'username', password: 'wrong-password' });

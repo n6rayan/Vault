@@ -1,4 +1,5 @@
 const Database = require('../database');
+const helpers = require('../helpers');
 const log = require('../logger');
 
 const db = new Database();
@@ -9,7 +10,12 @@ const db = new Database();
  * @returns {Object} Returns the details you sent in with an additional _id field
  */
 const createUser = async (req, res) => {
+  const user = req.body;
+
   try {
+    const hashedPassword = helpers.hashUserPassword(user.password);
+    user.password = hashedPassword;
+
     await db.createUser(req.body);
 
     return res.status(200).send({
