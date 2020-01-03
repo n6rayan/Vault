@@ -12,7 +12,7 @@ module.exports = new LocalStrategy(async (username, password, done) => {
       return done(null, false);
     }
 
-    if (password !== user.password) {
+    if (!helpers.verifyUserPassword(password, user.password)) {
       return done(null, false);
     }
   }
