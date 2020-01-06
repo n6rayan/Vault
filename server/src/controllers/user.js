@@ -1,4 +1,5 @@
 const Database = require('../database');
+const emailDispatcher = require('../emailDispatcher');
 const helpers = require('../helpers');
 const log = require('../logger');
 
@@ -18,7 +19,11 @@ const createUser = async (req, res) => {
 
     await db.createUser(user);
 
-    _sendEmailToConfirmAccount();
+    const sentEmail = await emailDispatcher.sendConfirmationEmail(user.username, user.email, user.emailHash);
+
+    if (!sentEmail.body.sent.length) {
+      throw new Error(`Email address: [${user.email}] is unreachable!`);
+    }
 
     return res.status(200).send({
       success: 1,
@@ -34,7 +39,5 @@ const createUser = async (req, res) => {
     });
   }
 }
-
-const _sendEmailToConfirmAccount = () => {}
 
 module.exports.createUser = createUser;
