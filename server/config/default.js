@@ -9,5 +9,8 @@ module.exports = {
   },
   jwt: {
     secret: 'PyXqNfZBfiGy87pw'
+  },
+  crypto: {
+    secret: '6v9y$B&E(H+MbQeT'
   }
 };
