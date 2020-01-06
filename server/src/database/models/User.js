@@ -20,6 +20,17 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  isEmailConfirmed: {
+    type: Boolean,
+    role: {
+      type: Boolean,
+      default: false,
+    }
+  },
+  emailHash: {
+    type: String,
+    required: true,
   }
 });
 
