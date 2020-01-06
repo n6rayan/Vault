@@ -13,10 +13,12 @@ const createUser = async (req, res) => {
   const user = req.body;
 
   try {
-    const hashedPassword = helpers.hashUserPassword(user.password);
-    user.password = hashedPassword;
+    user.password = helpers.hashUserPassword(user.password);
+    user.emailHash = helpers.hashGenerator(user.username);
 
-    await db.createUser(req.body);
+    await db.createUser(user);
+
+    _sendEmailToConfirmAccount();
 
     return res.status(200).send({
       success: 1,
@@ -32,5 +34,7 @@ const createUser = async (req, res) => {
     });
   }
 }
+
+const _sendEmailToConfirmAccount = () => {}
 
 module.exports.createUser = createUser;
