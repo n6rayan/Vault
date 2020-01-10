@@ -40,4 +40,9 @@ const createUser = async (req, res) => {
   }
 }
 
+const confirmUserAccount = async (req, res) => {
+  const emailHash = req.query.data;
+}
+
 module.exports.createUser = createUser;
+module.exports.confirmUserAccount = confirmUserAccount;
