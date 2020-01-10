@@ -14,7 +14,7 @@ const sendConfirmationEmail = async (username, emailAddress, emailHash) => {
   
   Please confirm the email address you used to register your account by clicking the link below:
   
-  http://vault.io/api/confirm-user/${emailHash}
+  http://vault.io:3001/api/user/confirm?data=${emailHash}
   
   Kind Regards,
   
