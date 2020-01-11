@@ -1,3 +1,4 @@
+const config = require('config');
 const jwt = require('jsonwebtoken');
 
 /**
@@ -6,6 +7,6 @@ const jwt = require('jsonwebtoken');
  * @param {String} secret
  * @returns {Object} Returns the decoded payload
  */
-module.exports = (jwtString, secret) => {
-  return jwt.verify(jwtString, secret);
+module.exports = (jwtString) => {
+  return jwt.verify(jwtString, config.get('jwt.secret'));
 };
