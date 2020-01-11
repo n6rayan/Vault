@@ -28,9 +28,8 @@ const UserSchema = mongoose.Schema({
       default: false,
     }
   },
-  emailHash: {
+  emailToken: {
     type: String,
-    required: true,
   }
 });
 

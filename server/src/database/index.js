@@ -49,6 +49,12 @@ class Database {
   async getUserById(id) {
     return await User.findById(id);
   }
+
+  async updateUser(query, data) {
+    return await User.findOneAndUpdate(query, data, {
+      new: true
+    });
+  }
 }
 
 module.exports = Database;
