@@ -27,6 +27,18 @@ describe('User Routes', function () {
     expect(response.body).to.eql({ success: 1, message: 'User created!' });
   });
 
+  // TODO: Write this test
+  xit('should confirm a users email', async function () {
+    const confirmedUser = userData;
+    const userData = require('../fixtures/user/user');
+    sinon.stub(Database.prototype, "updateUser").resolves(confirmedUser);
+
+    const response = await chai.request(app).post('/api/user').send(userData);
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.eql({ success: 1, message: 'User created!' });
+  });
+
   after(function() {
     sinon.restore();
   });

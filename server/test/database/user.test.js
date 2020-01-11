@@ -36,6 +36,16 @@ describe('Test Database User Functions', function () {
     chai.expect(user.phone).to.equal('07123456789');
   });
 
+  it('should update a user from query', async function () {
+    sinon.stub(Database.prototype, "updateUser").returns(dbUserData);
+    const user = await db.updateUser({ username: 'username' }, { name: 'User Name' });
+
+    chai.expect(user).to.be.an('Object');
+    chai.expect(user.username).to.equal('username');
+    chai.expect(user.name).to.equal('User Name');
+    chai.expect(user.phone).to.equal('07123456789');
+  });
+
   afterEach(function() {
     sinon.restore();
   });

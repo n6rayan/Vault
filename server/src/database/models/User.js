@@ -30,6 +30,10 @@ const UserSchema = mongoose.Schema({
   },
   emailToken: {
     type: String,
+    role: {
+      type: String,
+      default: ''
+    }
   }
 });
 
