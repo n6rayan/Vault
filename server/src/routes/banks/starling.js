@@ -6,7 +6,6 @@ const StarlingAPI = require('../../banks/starlingAPI');
 const helpers = require('../../helpers');
 
 const vaultConfig = config.get('vault');
-const jwtSecret = config.get('jwt.secret');
 const ouathState = uuid();
 
 const starling = new StarlingAPI();
@@ -32,13 +31,13 @@ router.get('/oauth/redirect', async (req, res) => {
   }
 
   const tokens = await starling.getAccessToken(code);
-  const jwt = helpers.storingTokensAgainstJWT(req.cookies.jwt, tokens.data, jwtSecret);
+  const jwt = helpers.storingTokensAgainstJWT(req.cookies.jwt, tokens.data);
 
   res.cookie('jwt', jwt, { httpOnly: true }).redirect(`${vaultConfig.clientUrl}/account`);
 });
 
 router.get('/accounts', async (req, res) => {
-  const accessToken = helpers.jwtVerify(req.cookies.jwt, jwtSecret).accessToken;
+  const accessToken = helpers.jwtVerify(req.cookies.jwt).accessToken;
   const accountsRequest = await starling.getAccountsList(accessToken);
 
   const accountUids = accountsRequest.data.accounts.map(account => {
@@ -67,7 +66,7 @@ router.get('/accounts', async (req, res) => {
 });
 
 router.get('/statement/:accountId', async (req, res) => {
-  const accessToken = helpers.jwtVerify(req.cookies.jwt, jwtSecret).accessToken;
+  const accessToken = helpers.jwtVerify(req.cookies.jwt).accessToken;
   const statement = await starling.getCurrentStatement(accessToken, req.params.accountId);
 
   res.contentType('application/pdf').send(statement.data);
