@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const router = require('express').Router();
 
+const helpers = require('../helpers');
 const log = require('../logger');
 
 router.post('/login', (req, res, next) => {
@@ -27,7 +28,7 @@ router.post('/login', (req, res, next) => {
         return next(err);
       }
 
-      const token = jwt.sign(payload, config.get('jwt.secret'));
+      const token = helpers.jwtGenerate(payload);
 
       return res.cookie('jwt', token, {httpOnly: true}).send({
         success: 1,
