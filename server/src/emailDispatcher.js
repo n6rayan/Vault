@@ -4,20 +4,20 @@ const Mailjet = require('node-mailjet').connect(mailjetConfig.apiKey, mailjetCon
 
 /**
  * Sends a confirmation email for the user to validate their email address
- * @param {String} username 
- * @param {String} emailAddress 
- * @param {String} emailHash 
- * @returns {Object} 
+ * @param {String} username
+ * @param {String} emailAddress
+ * @param {String} emailToken
+ * @returns {Object}
  */
-const sendConfirmationEmail = async (username, emailAddress, emailHash) => {
+const sendConfirmationEmail = async (username, emailAddress, emailToken) => {
   const emailContent = `Hi ${username},
-  
+
   Please confirm the email address you used to register your account by clicking the link below:
-  
-  http://vault.io:3001/api/user/confirm?data=${emailHash}
-  
+
+  http://vault.io:3001/api/user/confirm?data=${emailToken}
+
   Kind Regards,
-  
+
   Vault Team`;
 
   return await _sendEmail(emailAddress, emailContent)
@@ -25,8 +25,8 @@ const sendConfirmationEmail = async (username, emailAddress, emailHash) => {
 
 /**
  * Sends request to MailJet API to send email to specified email address
- * @param {String} emailAddress 
- * @param {Object} options 
+ * @param {String} emailAddress
+ * @param {String} emailContent
  * @returns {Object} Returns the request object
  */
 const _sendEmail = async (emailAddress, emailContent) => {
