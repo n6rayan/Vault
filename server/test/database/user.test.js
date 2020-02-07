@@ -11,7 +11,7 @@ describe('Test Database User Functions', function () {
   const dbUserData = require('../fixtures/user/db-user');
 
   it('should create user', async function () {
-    sinon.stub(Database.prototype, "createUser").returns(dbUserData);
+    sinon.stub(Database.prototype, 'createUser').returns(dbUserData);
     const user = await db.createUser(userData);
 
     chai.expect(user).to.be.an('Object');
@@ -19,7 +19,7 @@ describe('Test Database User Functions', function () {
   });
 
   it('should get user by username', async function () {
-    sinon.stub(Database.prototype, "getUserByUsername").returns(dbUserData);
+    sinon.stub(Database.prototype, 'getUserByUsername').returns(dbUserData);
     const user = await db.getUserByUsername('username');
 
     chai.expect(user).to.be.an('Object');
@@ -27,7 +27,7 @@ describe('Test Database User Functions', function () {
   });
 
   it('should get user by id', async function () {
-    sinon.stub(Database.prototype, "getUserById").returns(dbUserData);
+    sinon.stub(Database.prototype, 'getUserById').returns(dbUserData);
     const user = await db.getUserById('5d74c4c607d5f4ac2e9e0c1d');
 
     chai.expect(user).to.be.an('Object');
@@ -37,7 +37,7 @@ describe('Test Database User Functions', function () {
   });
 
   it('should update a user from query', async function () {
-    sinon.stub(Database.prototype, "updateUser").returns(dbUserData);
+    sinon.stub(Database.prototype, 'updateUser').returns(dbUserData);
     const user = await db.updateUser({ username: 'username' }, { name: 'User Name' });
 
     chai.expect(user).to.be.an('Object');

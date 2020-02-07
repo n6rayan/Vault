@@ -14,12 +14,12 @@ describe('User Routes', function () {
     const response = await chai.request(app).post('/api/user');
 
     expect(response.status).to.equal(400);
-    expect(response.body).to.eql({ success: 0, error: "Unable to create user!" });
+    expect(response.body).to.eql({ success: 0, error: 'Unable to create user!' });
   });
 
   it('should create a user', async function () {
     const userData = require('../fixtures/user/user');
-    sinon.stub(Database.prototype, "createUser").resolves(userData);
+    sinon.stub(Database.prototype, 'createUser').resolves(userData);
 
     const response = await chai.request(app).post('/api/user').send(userData);
 
@@ -31,7 +31,7 @@ describe('User Routes', function () {
   xit('should confirm a users email', async function () {
     const confirmedUser = userData;
     const userData = require('../fixtures/user/user');
-    sinon.stub(Database.prototype, "updateUser").resolves(confirmedUser);
+    sinon.stub(Database.prototype, 'updateUser').resolves(confirmedUser);
 
     const response = await chai.request(app).post('/api/user').send(userData);
 

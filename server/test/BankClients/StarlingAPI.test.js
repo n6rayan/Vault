@@ -8,7 +8,7 @@ describe('Test Starling API', function() {
 
   it('should get an access token', async function() {
     const tokenData = require('../fixtures/oauth/tokens');
-    sinon.stub(starling, "getAccessToken").resolves(tokenData);
+    sinon.stub(starling, 'getAccessToken').resolves(tokenData);
 
     const tokens = await starling.getAccessToken('code');
     
@@ -18,7 +18,7 @@ describe('Test Starling API', function() {
 
   it('should get a list of accounts', async function() {
     const accountData = require('../fixtures/accounts/accounts-list');
-    sinon.stub(starling, "getAccountsList").resolves(accountData);
+    sinon.stub(starling, 'getAccountsList').resolves(accountData);
 
     const accounts = await starling.getAccountsList('4cc355-T0k3N');
     
@@ -29,7 +29,7 @@ describe('Test Starling API', function() {
 
   it('should retrieve an accounts information', async function() {
     const accountInfo = require('../fixtures/accounts/account-information');
-    sinon.stub(starling, "getAccountInfo").resolves(accountInfo);
+    sinon.stub(starling, 'getAccountInfo').resolves(accountInfo);
 
     const account = await starling.getAccountInfo('4cc355-T0k3N', 'this-is-a-test');
     
@@ -39,7 +39,7 @@ describe('Test Starling API', function() {
 
   it('should retrieve an accounts balance', async function() {
     const accountBalance = require('../fixtures/accounts/account-balance');
-    sinon.stub(starling, "getAccountBalance").resolves(accountBalance);
+    sinon.stub(starling, 'getAccountBalance').resolves(accountBalance);
 
     const account = await starling.getAccountBalance('4cc355-T0k3N', 'this-is-a-test');
     
@@ -50,4 +50,4 @@ describe('Test Starling API', function() {
   afterEach(function() {
     sinon.restore();
   });
-})
+});
