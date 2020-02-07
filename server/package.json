@@ -4,8 +4,8 @@
   "description": "Centralised banking application allowing you to register all your accounts in one place and view all the information.",
   "main": "app.js",
   "scripts": {
-    "start": "VAULT_LOG_FILE='/var/log/vault.log' nodemon src/app.js",
-    "dev": "nodemon src/app.js",
+    "start": "NODE_ENV='production' VAULT_LOG_FILE='/var/log/vault.log' nodemon src/app.js",
+    "dev": "NODE_ENV='development' nodemon src/app.js",
     "docker": "NODE_ENV='docker' nodemon src/app.js",
     "test": "NODE_ENV='test' VAULT_LOG_LEVEL='silent' mocha test/**/*.js --exit",
     "lint": "eslint . --fix --ext .js"
