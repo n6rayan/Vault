@@ -17,11 +17,13 @@ const createUser = async (req, res) => {
 
   try {
     user.password = helpers.hashUserPassword(user.password);
-    user.emailToken = helpers.jwtGenerate({ username: user.username })
+    user.emailToken = helpers.jwtGenerate({ username: user.username });
+    user.isEmailConfirmed = false;
 
     await db.createUser(user);
 
-    const sentEmail = await emailDispatcher.sendConfirmationEmail(user.username, user.email, user.emailToken);
+    const sentEmail =
+      await emailDispatcher.sendConfirmationEmail(user.username, user.email, user.emailToken);
 
     if (!sentEmail.body.Sent.length) {
       throw new Error(`Email address: [${user.email}] is unreachable!`);
@@ -40,8 +42,17 @@ const createUser = async (req, res) => {
       error: 'Unable to create user!'
     });
   }
-}
+};
 
+const getUser = async (req, res) => {
+  const username = req.params.username;
+};
+
+/**
+ * Confirms the user's email address
+ * @param {Object} body
+ * @returns {Object} Returns the details you sent in with an additional _id field
+ */
 const confirmUserAccount = async (req, res) => {
   const emailToken = req.query.data;
   const vaultConfig = config.get('vault');
@@ -55,9 +66,12 @@ const confirmUserAccount = async (req, res) => {
     };
 
     const updateUser = await db.updateUser({ username: payload.username }, userData);
-    console.log(updateUser);
 
-    return res.redirect(vaultConfig.clientUrl);
+    if (updateUser._id && updateUser.isEmailConfirmed && updateUser.emailToken === '') {
+      return res.redirect(vaultConfig.clientUrl);
+    }
+
+    // return res.redirect(SOME_REACT_ERROR_PAGE, "ERROR TO SEND TO REACT");
   }
   catch (err) {
     log.error(err);
@@ -67,7 +81,7 @@ const confirmUserAccount = async (req, res) => {
       message: 'Unable to confirm users email address!'
     });
   }
-}
+};
 
 module.exports.createUser = createUser;
 module.exports.confirmUserAccount = confirmUserAccount;
