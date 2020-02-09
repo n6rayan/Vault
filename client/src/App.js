@@ -50,7 +50,7 @@ export default class App extends PureComponent {
   render() {
 
     if (!this.state.loggedIn) {
-      return <WelcomeRouter updateUser={this.updateUser} />;
+      return <WelcomeRouter />;
     }
 
     return <MainRouter username={this.state.username} updateUser={this.updateUser} />;

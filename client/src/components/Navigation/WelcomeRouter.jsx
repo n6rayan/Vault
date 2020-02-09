@@ -6,25 +6,15 @@ import Welcome from '../Welcome';
 import Login from '../Login';
 import SignUp from '../SignUp';
 
-const WelcomeRouter = (props) => {
-
-  const LoginComponent = (props) => {
-    return (
-      <Login {...props} />
-    );
-  }
+const WelcomeRouter = () => {
 
   return (
     <div>
       <Route path="/" exact component={Welcome} />
-      <Route path="/login" component={LoginComponent} />
+      <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
     </div>
   );
-};
-
-WelcomeRouter.propTypes = {
-  updateUser: PropTypes.func.isRequired
 };
 
 export default WelcomeRouter;
