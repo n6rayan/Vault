@@ -4,10 +4,10 @@ module.exports = {
     clientUrl: 'http://vault.io:3000'
   },
   starling: {
-    clientId: 'f853knrVYfhuV4ytrKfE',
-    clientSecret: '0uMqJeqjzLNaUXD2mMpVygr7jF53akRy6ToyNZCe'
+    clientId: process.env.STARLING_CLIENT_ID,
+    clientSecret: process.env.STARLING_CLIENT_SECRET
   },
   jwt: {
-    secret: 'PyXqNfZBfiGy87pw'
+    secret: process.env.JWT_AUTH_SECRET
   }
 };
